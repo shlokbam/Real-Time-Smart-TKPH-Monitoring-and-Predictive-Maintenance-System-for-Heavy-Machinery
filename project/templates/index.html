@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKPH Tire Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-truck"></i> TireTrack</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="{{ url_for('index') }}">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('monitoring') }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Real-time Monitoring</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('prediction') }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Prediction</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#history" class="history-link">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© 2025 TireTrack AI</p>
+                <p>Predictive Tire Analysis</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Dashboard</h2>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- System Overview Section -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>System Overview</h3>
+                            </div>
+                            <div class="card-body">
+                                <h4 class="mb-3">Welcome to the TKPH Tire Management System</h4>
+                                <p>
+                                    This system helps you monitor and predict tire performance for your heavy equipment fleet. 
+                                    By analyzing TKPH (Ton-Kilometers Per Hour) values, our AI models can accurately forecast 
+                                    tire wear patterns, failure risks, and maintenance needs to optimize your operations.
+                                </p>
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="system-feature">
+                                            <i class="fas fa-tachometer-alt"></i>
+                                            <div>
+                                                <h5>Real-Time Monitoring</h5>
+                                                <p>Track speed, payload, and TKPH metrics from your vehicles in real-time</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="system-feature">
+                                            <i class="fas fa-chart-line"></i>
+                                            <div>
+                                                <h5>Predictive Analysis</h5>
+                                                <p>AI-powered predictions for tire wear, remaining life, and failure risks</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="system-feature">
+                                            <i class="fas fa-bell"></i>
+                                            <div>
+                                                <h5>Maintenance Alerts</h5>
+                                                <p>Get notified when tires need replacement or maintenance</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="system-feature">
+                                            <i class="fas fa-history"></i>
+                                            <div>
+                                                <h5>Historical Analysis</h5>
+                                                <p>Track tire performance over time to identify patterns and optimize usage</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- What is TKPH Section -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>Understanding TKPH</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>What is TKPH?</h4>
+                                        <p>
+                                            TKPH (Ton-Kilometers Per Hour) is a critical metric for tire performance monitoring. It represents 
+                                            the work a tire performs based on the load it carries and the distance it travels per hour.
+                                        </p>
+                                        <div class="formula-box mt-3">
+                                            <h5>TKPH Formula:</h5>
+                                            <p class="formula">TKPH = Average Speed (km/h) × Average Load (tons)</p>
+                                        </div>
+                                        <p class="mt-3">
+                                            Every tire has a specific TKPH rating assigned by the manufacturer. Exceeding this rating 
+                                            leads to heat buildup, accelerated wear, and potential failure. Our system helps you stay 
+                                            within safe operating limits.
+                                        </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4>TKPH Risk Levels</h4>
+                                        <div class="tkph-risk-levels">
+                                            <div class="risk-level">
+                                                <div class="risk-indicator safe"></div>
+                                                <div class="risk-details">
+                                                    <h5>Safe Zone (0-150)</h5>
+                                                    <p>Normal operation, minimal wear, optimal tire life</p>
+                                                </div>
+                                            </div>
+                                            <div class="risk-level">
+                                                <div class="risk-indicator warning"></div>
+                                                <div class="risk-details">
+                                                    <h5>Warning Zone (151-300)</h5>
+                                                    <p>Increased wear, monitor closely, potential for early replacement</p>
+                                                </div>
+                                            </div>
+                                            <div class="risk-level">
+                                                <div class="risk-indicator danger"></div>
+                                                <div class="risk-details">
+                                                    <h5>Danger Zone (>300)</h5>
+                                                    <p>High risk of failure, excessive heat buildup, immediate action required</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Guide Section -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>How to Use This System</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="guide-card">
+                                            <div class="guide-icon">
+                                                <i class="fas fa-tachometer-alt"></i>
+                                            </div>
+                                            <h4>Real-time Monitoring</h4>
+                                            <p>Navigate to the "Real-time Monitoring" page to:</p>
+                                            <ul>
+                                                <li>View live vehicle data including speed, payload, and TKPH</li>
+                                                <li>Select specific trucks from the dropdown menu</li>
+                                                <li>Monitor tire health indicators in real-time</li>
+                                                <li>Toggle auto-refresh to control data updates</li>
+                                                <li>Export log data to CSV for further analysis</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="guide-card">
+                                            <div class="guide-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <h4>Tire Analysis</h4>
+                                            <p>Use the "Tire Analysis" page to:</p>
+                                            <ul>
+                                                <li>Enter vehicle number and TKPH value</li>
+                                                <li>Get predictions for tire wear percentage</li>
+                                                <li>View estimated remaining tire life in hours</li>
+                                                <li>See failure risk assessment and maintenance alerts</li>
+                                                <li>Receive tailored recommendations for tire management</li>
+                                                <li>Save analysis as PDF for record keeping</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="guide-card">
+                                            <div class="guide-icon">
+                                                <i class="fas fa-history"></i>
+                                            </div>
+                                            <h4>History Tracking</h4>
+                                            <p>Access historical data through:</p>
+                                            <ul>
+                                                <li>Click the "History" link in the sidebar</li>
+                                                <li>View all previous tire analysis records</li>
+                                                <li>Track tire performance patterns over time</li>
+                                                <li>Identify vehicles with recurring issues</li>
+                                                <li>Plan maintenance schedules based on historical patterns</li>
+                                                <li>Export historical data for reporting</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Number</th>
+                                    <th>TKPH Value</th>
+                                    <th>Tire Wear (%)</th>
+                                    <th>Remaining Life (Hours)</th>
+                                    <th>Fuel Consumption (L/h)</th>
+                                    <th>Failure Risk</th>
+                                    <th>Maintenance Alert</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

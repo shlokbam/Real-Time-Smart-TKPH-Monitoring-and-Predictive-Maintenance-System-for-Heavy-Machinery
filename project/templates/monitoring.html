@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Monitoring - TKPH Tire Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-truck"></i> TireTrack</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url_for('monitoring') }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Real-time Monitoring</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('prediction') }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Prediction</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#history" class="history-link">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© 2025 TireTrack AI</p>
+                <p>Predictive Tire Analysis</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>Real-time Truck Monitoring</h2>
+                </div>
+                <div class="header-right">
+                    <div class="refresh-control">
+                        <span>Auto-refresh:</span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="autoRefreshToggle" checked>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content-card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h3>Truck Fleet Status</h3>
+                                <div class="truck-selector">
+                                    <select class="form-select" id="truckSelector">
+                                        <option value="all">All Trucks</option>
+                                        <option value="truck1" selected>Truck 1</option>
+                                        <option value="truck2">Truck 2</option>
+                                        <option value="truck3">Truck 3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="real-time-status">
+                                    <div class="status-cards">
+                                        <div class="status-card" id="speedCard">
+                                            <div class="status-icon">
+                                                <i class="fas fa-tachometer-alt"></i>
+                                            </div>
+                                            <div class="status-value">
+                                                <h3>-- km/h</h3>
+                                                <p>Current Speed</p>
+                                            </div>
+                                        </div>
+                                        <div class="status-card" id="payloadCard">
+                                            <div class="status-icon">
+                                                <i class="fas fa-weight-hanging"></i>
+                                            </div>
+                                            <div class="status-value">
+                                                <h3>-- kg</h3>
+                                                <p>Current Payload</p>
+                                            </div>
+                                        </div>
+                                        <div class="status-card" id="tkphCard">
+                                            <div class="status-icon">
+                                                <i class="fas fa-fire"></i>
+                                            </div>
+                                            <div class="status-value">
+                                                <h3>--</h3>
+                                                <p>Current TKPH</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>Real-time Metrics</h3>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="realTimeChart" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-4">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>TKPH Analysis</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="tkph-gauge-container">
+                                    <canvas id="tkphGauge"></canvas>
+                                    <div id="tkphStatus" class="text-center mt-3">
+                                        <span class="badge bg-success">Safe Operating Range</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="content-card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h3>Data Log</h3>
+                                <button class="btn btn-sm btn-outline-primary" id="exportData">
+                                    <i class="fas fa-download"></i> Export
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="dataLogTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Entry #</th>
+                                                <th>Time</th>
+                                                <th>Speed (km/h)</th>
+                                                <th>Payload (kg)</th>
+                                                <th>TKPH</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Dynamic content -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Number</th>
+                                    <th>TKPH Value</th>
+                                    <th>Tire Wear (%)</th>
+                                    <th>Remaining Life (Hours)</th>
+                                    <th>Fuel Consumption (L/h)</th>
+                                    <th>Failure Risk</th>
+                                    <th>Maintenance Alert</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/monitoring.js') }}"></script>
+</body>
+</html>

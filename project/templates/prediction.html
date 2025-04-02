@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tire Analysis - TKPH Tire Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="fas fa-truck"></i> TireTrack</h1>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="{{ url_for('index') }}">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url_for('monitoring') }}">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Real-time Monitoring</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url_for('prediction') }}">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Prediction</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#history" class="history-link">
+                            <i class="fas fa-history"></i>
+                            <span>History</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© 2025 TireTrack AI</p>
+                <p>Predictive Tire Analysis</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <button class="menu-toggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <h2>TKPH-Based Prediction</h2>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="content-card">
+                            <div class="card-header">
+                                <h3>Input Parameters</h3>
+                            </div>
+                            <div class="card-body">
+                                <form id="predictionForm">
+                                    <div class="mb-3">
+                                        <label for="vehicleNumber" class="form-label">
+                                            <i class="fas fa-truck"></i> Vehicle Number
+                                        </label>
+                                        <input type="text" class="form-control" id="vehicleNumber" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="tkphValue" class="form-label">
+                                            <i class="fas fa-fire"></i> TKPH Value
+                                        </label>
+                                        <input type="number" class="form-control" id="tkphValue" min="0" step="1" required>
+                                        <div class="form-text">
+                                            TKPH = Speed (km/h) × Payload (tons)
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="tkph-range">
+                                            <div class="range-item safe">
+                                                <span>Safe</span>
+                                                <div class="range-bar"></div>
+                                                <span>0-150</span>
+                                            </div>
+                                            <div class="range-item warning">
+                                                <span>Warning</span>
+                                                <div class="range-bar"></div>
+                                                <span>151-300</span>
+                                            </div>
+                                            <div class="range-item danger">
+                                                <span>Danger</span>
+                                                <div class="range-bar"></div>
+                                                <span>>300</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">
+                                        <i class="fas fa-calculator"></i> Calculate Predictions
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="content-card result-card d-none" id="resultCard">
+                            <div class="card-header">
+                                <h3>Analysis Results <span id="vehicleLabel"></span></h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="prediction-group">
+                                            <h4>Tire Wear</h4>
+                                            <div class="tire-wear-gauge">
+                                                <div class="progress">
+                                                    <div class="progress-bar" id="tireWearProgress" role="progressbar" style="width: 0%"></div>
+                                                </div>
+                                                <div class="gauge-value" id="tireWearValue">0%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="prediction-group">
+                                            <h4>Remaining Life</h4>
+                                            <div class="d-flex align-items-center">
+                                                <div class="tire-life-icon">
+                                                    <i class="fas fa-hourglass-half"></i>
+                                                </div>
+                                                <div class="tire-life-value">
+                                                    <span id="remainingLifeValue">0</span>
+                                                    <span class="units">hours</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="prediction-group">
+                                            <h4>Fuel Consumption</h4>
+                                            <div class="d-flex align-items-center">
+                                                <div class="fuel-icon">
+                                                    <i class="fas fa-gas-pump"></i>
+                                                </div>
+                                                <div class="fuel-value">
+                                                    <span id="fuelConsumptionValue">0</span>
+                                                    <span class="units">L/h</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="prediction-group">
+                                            <h4>Failure Risk</h4>
+                                            <div class="failure-risk" id="failureRiskContainer">
+                                                <span class="badge bg-success">Safe Operating Range</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="maintenance-alert mt-4" id="maintenanceAlertContainer">
+                                    <div class="alert alert-success">
+                                        <i class="fas fa-check-circle"></i> No maintenance required at this time
+                                    </div>
+                                </div>
+
+                                <div class="insights-container mt-4">
+                                    <h4>Insights & Recommendations</h4>
+                                    <div id="insightsContainer">
+                                        <!-- Dynamic content -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <button class="btn btn-outline-primary btn-sm" id="savePdfBtn">
+                                    <i class="fas fa-file-pdf"></i> Save as PDF
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" id="newAnalysisBtn">
+                                    <i class="fas fa-plus"></i> New Analysis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Prediction History</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Vehicle Number</th>
+                                    <th>TKPH Value</th>
+                                    <th>Tire Wear (%)</th>
+                                    <th>Remaining Life (Hours)</th>
+                                    <th>Fuel Consumption (L/h)</th>
+                                    <th>Failure Risk</th>
+                                    <th>Maintenance Alert</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic content -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/prediction.js') }}"></script>
+</body>
+</html>

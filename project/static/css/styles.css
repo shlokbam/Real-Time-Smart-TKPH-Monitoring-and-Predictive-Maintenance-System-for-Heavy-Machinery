@@ -1,0 +1,719 @@
+/* Global Styles */
+:root {
+    --primary: #4e73df;
+    --success: #1cc88a;
+    --info: #36b9cc;
+    --warning: #f6c23e;
+    --danger: #e74a3b;
+    --dark: #5a5c69;
+    --light: #f8f9fc;
+    --sidebar-width: 250px;
+    --header-height: 70px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fc;
+    color: #5a5c69;
+}
+
+/* App Container */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: var(--sidebar-width);
+    background: linear-gradient(180deg, #4e73df 0%, #224abe 100%);
+    color: #fff;
+    position: fixed;
+    height: 100vh;
+    transition: all var(--transition-speed);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-header h1 {
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-header h1 i {
+    margin-right: 8px;
+    font-size: 1.5rem;
+}
+
+.sidebar-nav {
+    padding: 1rem 0;
+    flex-grow: 1;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li.active a {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav li a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: var(--sidebar-width);
+    position: relative;
+    transition: all var(--transition-speed);
+}
+
+.main-header {
+    height: var(--header-height);
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-left h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #5a5c69;
+    font-weight: 500;
+}
+
+.menu-toggle {
+    margin-right: 15px;
+    border: none;
+    background: none;
+    color: #5a5c69;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info span {
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+.user-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.refresh-control {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.refresh-control span {
+    margin-right: 10px;
+    font-size: 0.9rem;
+}
+
+/* Content Section */
+.content {
+    padding: 1.5rem;
+}
+
+/* Cards */
+.content-card {
+    background-color: #fff;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e3e6f0;
+    background-color: #f8f9fc;
+    border-top-left-radius: 0.35rem;
+    border-top-right-radius: 0.35rem;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4e73df;
+}
+
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-footer {
+    padding: 1rem 1.25rem;
+    background-color: #f8f9fc;
+    border-top: 1px solid #e3e6f0;
+}
+
+/* Dashboard Overview */
+.stat-card {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    margin-right: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.bg-primary {
+    background-color: var(--primary);
+}
+
+.bg-success {
+    background-color: var(--success);
+}
+
+.bg-info {
+    background-color: var(--info);
+}
+
+.bg-warning {
+    background-color: var(--warning);
+}
+
+.bg-danger {
+    background-color: var(--danger);
+}
+
+.stat-details h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #5a5c69;
+}
+
+.stat-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #858796;
+}
+
+/* Recent Activity */
+.activity-timeline {
+    padding: 10px 0;
+}
+
+.activity-item {
+    position: relative;
+    padding-left: 40px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ededed;
+}
+
+.activity-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.activity-icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.activity-content h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.activity-content p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #858796;
+}
+
+.activity-time {
+    font-size: 0.8rem;
+    color: #b7b9cc;
+}
+
+/* Real-time Monitoring */
+.status-cards {
+    display: flex;
+    flex-wrap: wrap;
+    margin: -10px;
+}
+
+.status-card {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    padding: 1.25rem;
+    background-color: #fff;
+    border-radius: 0.35rem;
+    box-shadow: 0 0.15rem 0.5rem 0 rgba(58, 59, 69, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+.status-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 15px;
+}
+
+.status-value h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.status-value p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #858796;
+}
+
+/* TKPH Analysis */
+.tkph-gauge-container {
+    position: relative;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Prediction Page */
+.result-card {
+    min-height: 400px;
+}
+
+.prediction-group {
+    margin-bottom: 20px;
+}
+
+.prediction-group h4 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #4e73df;
+    font-weight: 500;
+}
+
+.tire-wear-gauge {
+    position: relative;
+    margin-top: 20px;
+}
+
+.progress {
+    height: 20px;
+    background-color: #eaecf4;
+    border-radius: 0.25rem;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.gauge-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: right;
+}
+
+.tire-life-icon,
+.fuel-icon {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 15px;
+}
+
+.tire-life-value,
+.fuel-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.units {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #858796;
+    margin-left: 5px;
+}
+
+.tkph-range {
+    margin: 15px 0;
+}
+
+.range-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.range-item span {
+    font-size: 0.8rem;
+    min-width: 60px;
+}
+
+.range-bar {
+    flex: 1;
+    height: 6px;
+    margin: 0 10px;
+    border-radius: 3px;
+}
+
+.range-item.safe .range-bar {
+    background-color: var(--success);
+}
+
+.range-item.warning .range-bar {
+    background-color: var(--warning);
+}
+
+.range-item.danger .range-bar {
+    background-color: var(--danger);
+}
+
+.failure-risk {
+    margin-top: 10px;
+}
+
+.failure-risk .badge {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+}
+
+.insights-container {
+    background-color: #f8f9fc;
+    border-radius: 0.35rem;
+    padding: 15px;
+}
+
+.insights-container h4 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #4e73df;
+    font-weight: 500;
+}
+
+.insight-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.insight-item i {
+    margin-right: 10px;
+    font-size: 1rem;
+    margin-top: 2px;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .main-content.sidebar-active {
+        margin-left: var(--sidebar-width);
+    }
+}
+
+/* Additional styles for updated dashboard */
+
+/* System Feature Cards */
+.system-feature {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.system-feature i {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.system-feature h5 {
+    margin-bottom: 5px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.system-feature p {
+    margin: 0;
+    color: #6c757d;
+}
+
+/* TKPH Formula Box */
+.formula-box {
+    background-color: #f8f9fc;
+    border-left: 4px solid var(--primary);
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.formula-box h5 {
+    margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.formula {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary);
+}
+
+/* TKPH Risk Levels */
+.tkph-risk-levels {
+    margin-top: 20px;
+}
+
+.risk-level {
+    display: flex;
+    margin-bottom: 15px;
+    align-items: flex-start;
+}
+
+.risk-indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 15px;
+    margin-top: 4px;
+}
+
+.risk-indicator.safe {
+    background-color: var(--success);
+}
+
+.risk-indicator.warning {
+    background-color: var(--warning);
+}
+
+.risk-indicator.danger {
+    background-color: var(--danger);
+}
+
+.risk-details h5 {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.risk-details p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Hardware List */
+.hardware-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.hardware-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.hardware-list li i {
+    font-size: 1.2rem;
+    color: var(--primary);
+    width: 30px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+/* Data Flow Diagram */
+.data-flow-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.flow-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.flow-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.flow-arrow {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.flow-labels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flow-label {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 23px;
+}
+
+/* User Guide Cards */
+.guide-card {
+    background-color: #f8f9fc;
+    border-radius: 8px;
+    padding: 20px;
+    height: 100%;
+    box-shadow: 0 0.15rem 0.5rem 0 rgba(58, 59, 69, 0.1);
+    transition: transform 0.2s;
+}
+
+.guide-card:hover {
+    transform: translateY(-5px);
+}
+
+.guide-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    margin: 0 auto 15px;
+}
+
+.guide-card h4 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: var(--dark);
+    font-weight: 600;
+}
+
+.guide-card p {
+    margin-bottom: 10px;
+}
+
+.guide-card ul {
+    padding-left: 20px;
+}
+
+.guide-card ul li {
+    margin-bottom: 5px;
+    color: #6c757d;
+}
+
+#tkphGauge {
+    width: 100% !important;
+    height: 250px !important; /* Adjust as needed */
+}
