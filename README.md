@@ -23,8 +23,8 @@ This system integrates real-time monitoring with predictive analytics to help mi
 
 ## 🔧 Technology Stack
 
-- **Frontend**: Streamlit
-- **Backend**: Python
+- **Frontend**: HTML, CSS and JS
+- **Backend**: Python (Flask)
 - **Database**: Firebase Realtime Database
 - **Machine Learning**: scikit-learn (Random Forest models)
 - **Data Visualization**: Matplotlib
