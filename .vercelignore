@@ -1,0 +1,7 @@
+synthetic_tkph_data.csv
+tkph_predictions.csv
+*.ipynb
+.venv/
+__pycache__/
+*.md
+*.DS_Store 
