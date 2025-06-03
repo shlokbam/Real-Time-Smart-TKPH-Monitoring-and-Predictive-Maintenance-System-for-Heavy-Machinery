@@ -1,2 +1,3 @@
 Vehicle Number,TKPH Value,Tire Wear (%),Remaining Life (Hours),Fuel Consumption (L/h),Failure Risk,Maintenance Alert
 ABCD,190,17.280074592838936,869.932022813723,4.738467974179892,1,0
+1,450.0,36.238459456710196,631.5656649510204,9.662052409014334,High Heat Failure Risk,1
