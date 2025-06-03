@@ -12,25 +12,45 @@ app = Flask(__name__)
 
 # Initialize Firebase if not already initialized
 try:
-    cred = credentials.Certificate("firebase_credentials.json")
+    # For Vercel deployment, use environment variables
+    if os.environ.get('VERCEL_ENV') == 'production':
+        cred_dict = {
+            "type": os.environ.get('FIREBASE_TYPE'),
+            "project_id": os.environ.get('FIREBASE_PROJECT_ID'),
+            "private_key_id": os.environ.get('FIREBASE_PRIVATE_KEY_ID'),
+            "private_key": os.environ.get('FIREBASE_PRIVATE_KEY').replace('\\n', '\n'),
+            "client_email": os.environ.get('FIREBASE_CLIENT_EMAIL'),
+            "client_id": os.environ.get('FIREBASE_CLIENT_ID'),
+            "auth_uri": os.environ.get('FIREBASE_AUTH_URI'),
+            "token_uri": os.environ.get('FIREBASE_TOKEN_URI'),
+            "auth_provider_x509_cert_url": os.environ.get('FIREBASE_AUTH_PROVIDER_CERT_URL'),
+            "client_x509_cert_url": os.environ.get('FIREBASE_CLIENT_CERT_URL')
+        }
+        cred = credentials.Certificate(cred_dict)
+    else:
+        # Local development
+        cred = credentials.Certificate("firebase_credentials.json")
+    
     if not firebase_admin._apps:
         firebase_admin.initialize_app(cred, {
-            "databaseURL": "https://tkph-ace70-default-rtdb.firebaseio.com"
+            "databaseURL": os.environ.get('FIREBASE_DATABASE_URL', "https://tkph-ace70-default-rtdb.firebaseio.com")
         })
 except Exception as e:
     print(f"Firebase initialization failed: {e}")
 
 # Load trained models
 try:
-    reg_model = joblib.load("models/regression_model.pkl")
-    class_model = joblib.load("models/classification_model.pkl")
+    # For Vercel deployment, models should be in the root directory
+    model_path = "models" if os.environ.get('VERCEL_ENV') != 'production' else "."
+    reg_model = joblib.load(f"{model_path}/regression_model.pkl")
+    class_model = joblib.load(f"{model_path}/classification_model.pkl")
 except Exception as e:
     print(f"Model loading failed: {e}")
     reg_model = None
     class_model = None
 
-# CSV file path
-csv_file = "tkph_predictions.csv"
+# CSV file path - use environment variable for production
+csv_file = os.environ.get('CSV_FILE_PATH', "tkph_predictions.csv")
 
 @app.route('/')
 def index():
@@ -170,5 +190,10 @@ def history():
             "message": str(e)
         })
 
+# Modify the run statement for Vercel
 if __name__ == '__main__':
+    # For local development
     app.run(debug=True)
+else:
+    # For Vercel
+    app = app
