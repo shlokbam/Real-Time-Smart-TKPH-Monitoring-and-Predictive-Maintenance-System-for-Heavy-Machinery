@@ -41,7 +41,7 @@ except Exception as e:
 # Load trained models
 try:
     # For Vercel deployment, models should be in the root directory
-    model_path = "models" if os.environ.get('VERCEL_ENV') != 'production' else "."
+    model_path = "Models" if os.environ.get('VERCEL_ENV') != 'production' else "."
     reg_model = joblib.load(f"{model_path}/regression_model.pkl")
     class_model = joblib.load(f"{model_path}/classification_model.pkl")
 except Exception as e:
