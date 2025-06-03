@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 # Initialize Firebase if not already initialized
 try:
-    # For Vercel deployment, use environment variables
-    if os.environ.get('VERCEL_ENV') == 'production':
+    # Use environment variables on Render or Vercel
+    if os.environ.get('RENDER') == 'true' or os.environ.get('RENDER_EXTERNAL_HOSTNAME') or os.environ.get('VERCEL_ENV') == 'production':
         cred_dict = {
             "type": os.environ.get('FIREBASE_TYPE'),
             "project_id": os.environ.get('FIREBASE_PROJECT_ID'),
